@@ -1,18 +1,22 @@
-import 'image_view_model.dart';
+import "package:sport_app/model/nationality_model.dart";
 
 class Player {
   final int id;
   final String fullName;
   final String displayName;
   final int playerNumber;
-  final List<ImageView> imageGallaries;
+  final String img;
+  final Nationality nationality;
+  final String position;
 
   Player({
     required this.id,
     required this.fullName,
     required this.displayName,
     required this.playerNumber,
-    required this.imageGallaries,
+    required this.img,
+    required this.nationality,
+    required this.position,
   });
 
   factory Player.fromJson(Map<String, dynamic> json) {
@@ -21,8 +25,9 @@ class Player {
       fullName: json['full_name'],
       displayName: json['display_name'],
       playerNumber: json['player_number'],
-      imageGallaries:
-          json['image_galleries'].map((i) => ImageView.fromJson(i)).toList(),
+      img: json['img'],
+      nationality: Nationality.fromJson(json['nationality']),
+      position: json['position'],
     );
   }
 
@@ -32,8 +37,9 @@ class Player {
       'fullName': fullName,
       'displayName': displayName,
       'playerNumber': playerNumber,
-      'imageGalleries':
-          imageGallaries.map((imageView) => imageView.toJson()).toList(),
+      'img': img,
+      'nationality': nationality.toJson(),
+      'position': position,
     };
   }
 }

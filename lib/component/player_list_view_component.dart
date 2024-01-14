@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/player_card_image_component.dart';
 import 'package:sport_app/model/player_model.dart';
+import '../constant/player_const.dart';
+import 'dart:math';
 
 class PlayerListViewComponent extends StatefulWidget {
-  final List<Player> players;
-
-  const PlayerListViewComponent({Key? key, required this.players})
-      : super(key: key);
+  const PlayerListViewComponent({
+    Key? key,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -18,23 +20,40 @@ class _PlayerListViewComponent extends State<PlayerListViewComponent> {
     super.initState();
   }
 
+  List<Player> getRandomPlayers(List<Player> allPlayers, int count) {
+    if (count <= 0 || allPlayers.length < count) {
+      throw ArgumentError('Invalid count or player list length.');
+    }
+
+    List<Player> randomPlayers = [];
+    List<Player> copyOfPlayers = List.from(allPlayers);
+
+    for (int i = 0; i < count; i++) {
+      Random random = Random();
+      int randomIndex = random.nextInt(copyOfPlayers.length);
+      randomPlayers.add(copyOfPlayers.removeAt(randomIndex));
+    }
+
+    return randomPlayers;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Player> players = widget.players;
+    List<Player> players = getRandomPlayers(playersConst, 6);
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: players.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Text('Player Number: ${players[0].playerNumber}'),
-            height: 200,
-            width: 200,
-            color: Colors.amber,
-          ),
-        );
+        if (index + 1 <= 5) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PlayerCardImageComponent(
+              player: players[index],
+            ),
+          );
+        }
+        return Container();
       },
     );
   }

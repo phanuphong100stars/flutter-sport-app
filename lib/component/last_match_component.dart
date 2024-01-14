@@ -1,114 +1,149 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/model/last_match_model.dart';
 
 class LastMatchComponent extends StatefulWidget {
   const LastMatchComponent({super.key});
 
   @override
-  State<LastMatchComponent> createState() => _LastMatchComponentState();
+  State<LastMatchComponent> createState() => _LastMatchComponent();
 }
 
-class _LastMatchComponentState extends State<LastMatchComponent> {
+class _LastMatchComponent extends State<LastMatchComponent> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  final List<LastMatch> matches = [
+    LastMatch(
+        opponent: 'Liverpool',
+        teamScore: 0,
+        awayScore: 2,
+        isHome: false,
+        img: 'image/liverpool.png'),
+    LastMatch(
+        opponent: 'Fullham',
+        teamScore: 1,
+        awayScore: 2,
+        isHome: false,
+        img: 'image/fulham.png'),
+    LastMatch(
+        opponent: 'West Ham',
+        teamScore: 0,
+        awayScore: 2,
+        isHome: true,
+        img: 'image/westham.png'),
+    LastMatch(
+        opponent: 'Liverpool',
+        teamScore: 1,
+        awayScore: 1,
+        isHome: false,
+        img: 'image/liverpool.png'),
+    LastMatch(
+        opponent: 'Brighton',
+        teamScore: 2,
+        awayScore: 0,
+        isHome: true,
+        img: 'image/brighton.png')
+  ];
+
+  Widget _getMatchWonStatus(LastMatch match) {
+    final int teamScore = match.teamScore;
+    final int awayScore = match.awayScore;
+
+    final bool isWin = teamScore > awayScore;
+    final bool isLose = teamScore < awayScore;
+
+    if (isWin) {
+      return const Text(
+        'Win',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.green,
+        ),
+      );
+    }
+
+    if (isLose) {
+      return const Text(
+        'Lose',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.red,
+        ),
+      );
+    }
+
+    return const Text(
+      'Draw',
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Colors.grey,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        child: Column(children: [
-      Padding(
-          padding: const EdgeInsets.all(10),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Last Match',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-            ),
-            Card(
-              elevation: 1,
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: matches.length,
+      itemBuilder: (context, index) {
+        final bool isHome = matches[index].isHome;
 
-              // color: ThemeConfig.background,
-              child: SizedBox(
-                  child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(children: [
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Sun 7th Jan 2022 - 16:30 ',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      Row(children: [
-                                        Text(
-                                          'The Emirates FA Cup',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14),
-                                        ),
-                                      ])
-                                    ],
-                                  ),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.grey, width: 1)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 5),
-                                        child: Text('H',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.grey[600])),
-                                      )),
-                                ])),
-                        Row(children: [
-                          Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Row(children: [
-                                Image.asset('image/liverpool.png', height: 120),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text('Liverpool',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400)),
-                                ),
-                              ])),
-                          const Spacer(),
-                          const Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Row(
-                                children: [
-                                  Text('0',
-                                      style: TextStyle(
-                                          fontSize: 56,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.grey)),
-                                  Text(
-                                    ' - ',
-                                    style: TextStyle(
-                                        fontSize: 56,
+        return Padding(
+          padding: const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 8),
+          child: Card(
+            elevation: 1,
+            child: SizedBox(
+              width: 220,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(
+                          matches[index].img,
+                          width: 40,
+                        ),
+                        Column(
+                          children: [
+                            _getMatchWonStatus(matches[index]),
+                            Row(
+                              children: [
+                                Text(matches[index].awayScore.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 24,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.grey),
-                                  ),
-                                  Text('2',
-                                      style: TextStyle(
-                                          fontSize: 56,
-                                          fontWeight: FontWeight.w600))
-                                ],
-                              )),
-                        ])
-                      ]))),
+                                        color: Colors.grey)),
+                                const Text(
+                                  ' - ',
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey),
+                                ),
+                                Text(matches[index].teamScore.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            ),
+                          ],
+                        ),
+                        Text(isHome ? 'Home' : 'Away',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[600])),
+                      ])),
             ),
-          ])),
-    ]));
+          ),
+        );
+      },
+    );
   }
 }

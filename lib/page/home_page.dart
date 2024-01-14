@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/last_match_component.dart';
-import 'package:sport_app/component/last_match_test_component.dart';
+import 'package:sport_app/component/news_list_view_component.dart';
 import 'package:sport_app/component/next_fixure_component.dart';
 import 'package:sport_app/component/player_list_view_component.dart';
-import 'package:sport_app/model/player_model.dart';
 import '../config/theme_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -66,68 +65,65 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.centerLeft,
                 child: Text('Match History',
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
               ),
             ),
             Container(
                 color: ThemeConfig.background,
                 height: 100,
-                child: const LastMatchTestComponent()),
+                child: const LastMatchComponent()),
             const Padding(
               padding: EdgeInsets.only(
                 top: 10,
               ),
               child: NextFixtureComponent(),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10, left: 10),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10),
               child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Players',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-              ),
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('News',
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w600)),
+                        TextButton(
+                            onPressed: () => {},
+                            child: const Text(
+                              'View More',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                            )),
+                      ])),
             ),
             Container(
                 color: ThemeConfig.background,
-                height: 200,
-                child: PlayerListViewComponent(players: [
-                  Player(
-                    id: 1,
-                    fullName: 'Lionel Messi',
-                    displayName: 'Lionel',
-                    playerNumber: 500,
-                    imageGallaries: [],
-                  ),
-                  Player(
-                    id: 1,
-                    fullName: 'Lionel Messi',
-                    displayName: 'Lionel',
-                    playerNumber: 500,
-                    imageGallaries: [],
-                  ),
-                  Player(
-                    id: 1,
-                    fullName: 'Lionel Messi',
-                    displayName: 'Lionel',
-                    playerNumber: 500,
-                    imageGallaries: [],
-                  ),
-                  Player(
-                    id: 1,
-                    fullName: 'Lionel Messi',
-                    displayName: 'Lionel',
-                    playerNumber: 500,
-                    imageGallaries: [],
-                  ),
-                  Player(
-                    id: 1,
-                    fullName: 'Lionel Messi',
-                    displayName: 'Lionel',
-                    playerNumber: 500,
-                    imageGallaries: [],
-                  )
-                ])),
+                height: 220,
+                child: const NewsListViewComponent()),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Players',
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w600)),
+                        TextButton(
+                            onPressed: () => {},
+                            child: const Text(
+                              'View More',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                            )),
+                      ])),
+            ),
+            const SizedBox(height: 320, child: PlayerListViewComponent()),
+            const SizedBox(
+              height: 40,
+            ),
           ],
         ),
       ),
@@ -151,7 +147,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: ThemeConfig.secondary,
+        selectedItemColor: ThemeConfig.primary,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         onTap: _onItemTapped,
