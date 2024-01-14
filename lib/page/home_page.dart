@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
                 color: ThemeConfig.background,
-                height: 220,
+                height: 270,
                 child: const NewsListViewComponent()),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),

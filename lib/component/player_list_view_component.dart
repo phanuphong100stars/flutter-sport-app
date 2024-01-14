@@ -45,15 +45,12 @@ class _PlayerListViewComponent extends State<PlayerListViewComponent> {
       scrollDirection: Axis.horizontal,
       itemCount: players.length,
       itemBuilder: (context, index) {
-        if (index + 1 <= 5) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: PlayerCardImageComponent(
-              player: players[index],
-            ),
-          );
-        }
-        return Container();
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: PlayerCardImageComponent(
+            player: players[index],
+          ),
+        );
       },
     );
   }
