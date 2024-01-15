@@ -38,6 +38,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   day: ^0.8.0
   google_fonts: ^6.1.0
+  motion_tab_bar: ^2.0.4
 
 dev_dependencies:
   flutter_test:

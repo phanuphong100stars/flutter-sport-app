@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/last_match_component.dart';
-import 'package:sport_app/component/news_list_view_component.dart';
-import 'package:sport_app/component/next_fixure_component.dart';
-import 'package:sport_app/component/player_list_view_component.dart';
+import 'package:motion_tab_bar/MotionBadgeWidget.dart';
+import 'package:motion_tab_bar/MotionTabBar.dart';
+import 'package:motion_tab_bar/MotionTabBarController.dart';
 import '../config/theme_config.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'first_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,21 +14,32 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  MotionTabBarController? _motionTabBarController;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  void initState() {
+    _motionTabBarController = MotionTabBarController(
+      initialIndex: 2,
+      length: 5,
+      vsync: this,
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _motionTabBarController!.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
-        // title: Text('Arsenal Football Club',
-        //     style: TextStyle(color: ThemeConfig.background)),
         title: Text(
           'Arsenal Football Club',
           style: GoogleFonts.roboto(
@@ -37,120 +48,111 @@ class _HomePageState extends State<HomePage> {
             fontSize: 28,
           )),
         ),
-        leading: GestureDetector(
-          onTap: () {/* Write listener code here */},
-          child: Icon(
-            Icons.menu,
-            color: ThemeConfig.background,
-          ),
-        ),
         backgroundColor: ThemeConfig.primaryDark,
-        toolbarHeight: 70,
+        toolbarHeight: 80,
         centerTitle: false,
         titleSpacing: 10.0,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            color: ThemeConfig.background,
-            onPressed: () {},
+          // IconButton(
+          //   icon: const Icon(Icons.notifications),
+          //   color: ThemeConfig.background,
+          //   onPressed: () {},
+          // ),
+        ],
+      ),
+      body: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _motionTabBarController,
+        children: const [
+          Center(
+            child: Text("Dashboard"),
+          ),
+          Center(
+            child: Text("Profile"),
+          ),
+          SingleChildScrollView(child: FirstPage()),
+          Center(
+            child: Text("Settings"),
+          ),
+          Center(
+            child: Text("Noti"),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 10, left: 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Match History',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
-              ),
-            ),
-            Container(
-                color: ThemeConfig.background,
-                height: 100,
-                child: const LastMatchComponent()),
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 10,
-              ),
-              child: NextFixtureComponent(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('News',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w600)),
-                        TextButton(
-                            onPressed: () => {},
-                            child: const Text(
-                              'View More',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                            )),
-                      ])),
-            ),
-            Container(
-                color: ThemeConfig.background,
-                height: 270,
-                child: const NewsListViewComponent()),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Players',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w600)),
-                        TextButton(
-                            onPressed: () => {},
-                            child: const Text(
-                              'View More',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                            )),
-                      ])),
-            ),
-            const SizedBox(height: 320, child: PlayerListViewComponent()),
-            const SizedBox(
-              height: 40,
-            ),
-          ],
+      bottomNavigationBar: MotionTabBar(
+        controller: _motionTabBarController,
+        initialSelectedTab: "Home",
+        labels: const [
+          "Dashboard",
+          "Profile",
+          "Home",
+          "Settings",
+          "Noti",
+        ],
+        icons: const [
+          Icons.dashboard,
+          Icons.people_alt,
+          Icons.home,
+          Icons.settings,
+          Icons.notifications,
+        ],
+
+        // optional badges, length must be same with labels
+        badges: [
+          // Default Motion Badge Widget
+          const MotionBadgeWidget(
+            text: '10+',
+            textColor: Colors.white, // optional, default to Colors.white
+            color: Colors.red, // optional, default to Colors.red
+            size: 18, // optional, default to 18
+          ),
+
+          // custom badge Widget
+          // Container(
+          //   color: Colors.black,
+          //   padding: const EdgeInsets.all(2),
+          //   child: const Text(
+          //     '11',
+          //     style: TextStyle(
+          //       fontSize: 14,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
+          null,
+
+          // allow null
+          null,
+
+          // Default Motion Badge Widget with indicator only
+          MotionBadgeWidget(
+            isIndicator: true,
+            color: ThemeConfig.primaryDark, // optional, default to Colors.red
+            size: 5, // optional, default to 5,
+            show: true, // true / false
+          ),
+
+          null
+        ],
+        tabSize: 50,
+        tabBarHeight: 55,
+        textStyle: const TextStyle(
+          fontSize: 12,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Table',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Teams',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Fixtures',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: ThemeConfig.primary,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        onTap: _onItemTapped,
+        tabIconColor: ThemeConfig.primary,
+        tabIconSize: 28.0,
+        tabIconSelectedSize: 26.0,
+        tabSelectedColor: ThemeConfig.primaryDark,
+        tabIconSelectedColor: Colors.white,
+        tabBarColor: Colors.white,
+        onTabItemSelected: (int value) {
+          setState(() {
+            // _tabController!.index = value;
+            _motionTabBarController!.index = value;
+          });
+        },
       ),
     );
   }

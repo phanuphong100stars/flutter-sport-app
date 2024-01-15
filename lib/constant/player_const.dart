@@ -21,7 +21,7 @@ List<Player> playersConst = [
       playerNumber: 1,
       img:
           'https://www.arsenal.com/sites/default/files/styles/player_card_large/public/images/Headshot_Ramsdale_1510x850_0.jpg?auto=webp&itok=fKQag-VL',
-      nationality: _getNationalityById(1),
+      nationality: _getNationalityById(6),
       position: 'Goalkeepers'),
   Player(
       id: 2,
