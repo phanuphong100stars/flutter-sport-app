@@ -46,7 +46,7 @@ class _PlayerCardImageComponent extends State<PlayerCardImageComponent> {
     List<String> displayNames = _getDisplayName(player.displayName);
 
     return Card(
-      elevation: 1,
+      elevation: 2,
       child: SizedBox(
         child: Column(children: [
           Stack(children: [

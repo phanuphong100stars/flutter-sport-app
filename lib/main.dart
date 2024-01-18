@@ -16,7 +16,7 @@ class ArsenalApp extends StatelessWidget {
     return MaterialApp(
       title: 'Arsenal Football Club',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
         useMaterial3: true,
       ),
       home: const HomePage(),

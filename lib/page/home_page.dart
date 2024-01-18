@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:motion_tab_bar/MotionBadgeWidget.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
+import 'package:sport_app/page/player_page.dart';
+import 'package:sport_app/page/table_ranking_page.dart';
 import '../config/theme_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'first_page.dart';
@@ -52,30 +54,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         toolbarHeight: 80,
         centerTitle: false,
         titleSpacing: 10.0,
-        actions: [
-          // IconButton(
-          //   icon: const Icon(Icons.notifications),
-          //   color: ThemeConfig.background,
-          //   onPressed: () {},
-          // ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.notifications),
+        //     color: ThemeConfig.background,
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _motionTabBarController,
         children: const [
-          Center(
-            child: Text("Dashboard"),
-          ),
-          Center(
-            child: Text("Profile"),
-          ),
           SingleChildScrollView(child: FirstPage()),
           Center(
-            child: Text("Settings"),
+            child: Text("Matches"),
           ),
+          SingleChildScrollView(
+            child: TableRankingPage(),
+          ),
+          SingleChildScrollView(child: PlayerPage()),
           Center(
-            child: Text("Noti"),
+            child: Text("News"),
           ),
         ],
       ),
@@ -83,29 +83,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         controller: _motionTabBarController,
         initialSelectedTab: "Home",
         labels: const [
-          "Dashboard",
-          "Profile",
           "Home",
-          "Settings",
-          "Noti",
+          "Matches",
+          "Table",
+          "Teams",
+          "News",
         ],
         icons: const [
-          Icons.dashboard,
-          Icons.people_alt,
           Icons.home,
-          Icons.settings,
-          Icons.notifications,
+          Icons.event_note,
+          Icons.table_chart,
+          Icons.people_alt,
+          Icons.newspaper,
         ],
 
         // optional badges, length must be same with labels
         badges: [
-          // Default Motion Badge Widget
-          const MotionBadgeWidget(
-            text: '10+',
-            textColor: Colors.white, // optional, default to Colors.white
-            color: Colors.red, // optional, default to Colors.red
-            size: 18, // optional, default to 18
+          MotionBadgeWidget(
+            isIndicator: true,
+            color: ThemeConfig.primaryDark, // optional, default to Colors.red
+            size: 5, // optional, default to 5,
+            show: true, // true / false
           ),
+          // Default Motion Badge Widget
+          // const MotionBadgeWidget(
+          //   text: '10+',
+          //   textColor: Colors.white, // optional, default to Colors.white
+          //   color: Colors.red, // optional, default to Colors.red
+          //   size: 18, // optional, default to 18
+          // ),
+          null,
 
           // custom badge Widget
           // Container(
@@ -119,18 +126,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           //     ),
           //   ),
           // ),
-          null,
 
           // allow null
           null,
 
           // Default Motion Badge Widget with indicator only
-          MotionBadgeWidget(
-            isIndicator: true,
-            color: ThemeConfig.primaryDark, // optional, default to Colors.red
-            size: 5, // optional, default to 5,
-            show: true, // true / false
-          ),
+          null,
 
           null
         ],
