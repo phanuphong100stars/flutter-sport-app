@@ -16,6 +16,25 @@ final data = [
   TeamRanking(
       name: 'Tottenham Hotspur', mp: 12, w: 13, d: 14, pts: 13, rank: 5),
   TeamRanking(name: 'Westham United', mp: 12, w: 13, d: 14, pts: 43, rank: 6),
+  TeamRanking(
+      name: 'Brighton & Hove Albion', mp: 12, w: 13, d: 14, pts: 30, rank: 7),
+  TeamRanking(name: 'Fulham', mp: 12, w: 13, d: 14, pts: 29, rank: 8),
+  TeamRanking(name: 'Brentford', mp: 12, w: 13, d: 14, pts: 28, rank: 9),
+  TeamRanking(name: 'Crystal Palace', mp: 12, w: 13, d: 14, pts: 27, rank: 10),
+  TeamRanking(
+      name: 'Newcastle United', mp: 12, w: 13, d: 14, pts: 26, rank: 11),
+  TeamRanking(name: 'Chelsea', mp: 12, w: 13, d: 14, pts: 25, rank: 12),
+  TeamRanking(
+      name: 'Manchester United', mp: 12, w: 13, d: 14, pts: 24, rank: 13),
+  TeamRanking(name: 'Leicester City', mp: 12, w: 13, d: 14, pts: 23, rank: 14),
+  TeamRanking(name: 'AFC Bournemouth', mp: 12, w: 13, d: 14, pts: 22, rank: 15),
+  TeamRanking(name: 'Leeds United', mp: 12, w: 13, d: 14, pts: 21, rank: 16),
+  TeamRanking(
+      name: 'Wolverhampton Wanderers', mp: 12, w: 13, d: 14, pts: 20, rank: 17),
+  TeamRanking(
+      name: 'Nottingham Forest', mp: 12, w: 13, d: 14, pts: 19, rank: 18),
+  TeamRanking(name: 'Everton', mp: 12, w: 13, d: 14, pts: 18, rank: 19),
+  TeamRanking(name: 'Southampton', mp: 12, w: 13, d: 14, pts: 17, rank: 20)
 ];
 
 class _RankingTableComponentState extends State<RankingTableComponent> {

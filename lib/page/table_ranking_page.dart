@@ -17,7 +17,7 @@ class _TableRankingPageState extends State<TableRankingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return SingleChildScrollView(
         child: Container(
       width: double.infinity,
       color: ThemeConfig.background,
@@ -30,7 +30,10 @@ class _TableRankingPageState extends State<TableRankingPage> {
             height: 20,
           ),
           SingleChildScrollView(
-              scrollDirection: Axis.horizontal, child: RankingTableComponent())
+              scrollDirection: Axis.horizontal, child: RankingTableComponent()),
+          SizedBox(
+            height: 200,
+          ),
         ]),
       ),
     ));
